@@ -5,7 +5,7 @@ import gym
 import numpy as np
 import matplotlib.pyplot as plt
 
-seed = 123
+seed = 999
 np.random.seed(seed)
 random.seed(seed)
 logdir = 'plot'
@@ -16,7 +16,7 @@ def q_main(gamma):
     arg = parse_args()
     env = gym.make(arg.envid)
     env.seed(seed)
-    env.action_space.np_random.seed(seed)  # https://github.com/openai/gym/issues/681
+    env.action_space.np_random.seed(seed)
 
     q_table = np.zeros([env.nS, env.nA])
 
@@ -87,8 +87,8 @@ def r_main():
     env.action_space.np_random.seed(seed)  # https://github.com/openai/gym/issues/681
 
     r_table = np.zeros([env.nS, env.nA])
-    alpha = 0.05
-    beta = 0.5
+    alpha = 0.2
+    beta = 0.2
     epsilon = 0.1
     rho = 0
     accumulated_reward = 0
@@ -197,11 +197,11 @@ if __name__ == '__main__':
     data_q_four = q_main(0.98)
     data_r = r_main()
 
-    plt.plot(data_q_one, 'r-', label='R-Learning')
-    plt.plot(data_q_two, 'g-', label='Q-Learning: gamma=0.8')
-    plt.plot(data_q_three, 'c-', label='Q-Learning: gamma=0.9')
-    plt.plot(data_q_four, 'm-', label='Q-Learning: gamma=0.95')
-    plt.plot(data_r, 'b-', label='Q-Learning: gamma=0.98')
+    plt.plot(data_q_one, 'r-', label='Q-Learning: gamma=0.8')
+    plt.plot(data_q_two, 'g-', label='Q-Learning: gamma=0.9')
+    plt.plot(data_q_three, 'c-', label='Q-Learning: gamma=0.95')
+    plt.plot(data_q_four, 'm-', label='Q-Learning: gamma=0.98')
+    plt.plot(data_r, 'b-', label='R-Learning')
     plt.ylabel('Average Reward')
     plt.xlabel('Steps')
     plt.axis((0, 100000, 0.95, 1.35))
